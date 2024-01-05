@@ -1,0 +1,29 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Contract {
+    uint private confidentialValue = 99;
+    string private privateText = "Hello, Cryptonauts!";
+
+    function setConfidentialValue(uint NEW_key) public {
+        // Require that the new value is an even number or equal to 35
+        require(NEW_key % 2 == 0 || NEW_key == 35, "Only even numbers or 35 are allowed");
+        
+        // Change the confidential value
+        confidentialValue = NEW_key;
+    }
+
+    function getConfidentialValue() public view returns (uint) {
+        assert(confidentialValue != 0);
+        return confidentialValue;
+    }
+
+    function revealPrivateText() public view returns (string memory) {
+        // Revert if the confidential value is not 35
+        if (confidentialValue != 35) {
+            revert("Confidential value is not the expected value");
+        }
+
+        return privateText;
+    }
+}
